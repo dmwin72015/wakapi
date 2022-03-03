@@ -1,0 +1,13 @@
+launch.json
+.vscode
+wakapi
+.idea
+build
+*.exe
+*.db
+config*.yml
+!config.default.yml
+!testing/config.testing.yml
+pkged.go
+package-lock.json
+node_modules
