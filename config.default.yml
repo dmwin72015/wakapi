@@ -1,0 +1,74 @@
+env: production
+
+server:
+  listen_ipv4: 127.0.0.1              # leave blank to disable ipv4
+  listen_ipv6: ::1                    # leave blank to disable ipv6
+  listen_socket:                      # leave blank to disable unix sockets
+  timeout_sec: 30                     # request timeout
+  tls_cert_path:                      # leave blank to not use https
+  tls_key_path:                       # leave blank to not use https
+  port: 3000
+  base_path: /
+  public_url: http://localhost:3000   # required for links (e.g. password reset) in e-mail
+
+app:
+  aggregation_time: '02:15'           # time at which to run daily aggregation batch jobs
+  report_time_weekly: 'fri,18:00'     # time at which to fan out weekly reports (format: '<weekday)>,<daytime>')
+  inactive_days: 7                    # time of previous days within a user must have logged in to be considered active
+  import_batch_size: 50               # maximum number of heartbeats to insert into the database within one transaction
+  custom_languages:
+    vue: Vue
+    jsx: JSX
+    svelte: Svelte
+
+  # url template for user avatar images (to be used with services like gravatar or dicebear)
+  # available variable placeholders are: username, username_hash, email, email_hash
+  # defaults to wakapi's internal avatar rendering powered by https://codeberg.org/Codeberg/avatars
+  avatar_url_template: api/avatar/{username_hash}.svg
+
+db:
+  host:                               # leave blank when using sqlite3
+  port:                               # leave blank when using sqlite3
+  user:                               # leave blank when using sqlite3
+  password:                           # leave blank when using sqlite3
+  name: wakapi_db.db                  # database name for mysql / postgres or file path for sqlite (e.g. /tmp/wakapi.db)
+  dialect: sqlite3                    # mysql, postgres, sqlite3
+  charset: utf8mb4                    # only used for mysql connections
+  max_conn: 2                         # maximum number of concurrent connections to maintain
+  ssl: false                          # whether to use tls for db connection (must be true for cockroachdb) (ignored for mysql and sqlite)
+  automgirate_fail_silently: false    # whether to ignore schema auto-migration failures when starting up
+
+security:
+  password_salt:                      # change this
+  insecure_cookies: true              # should be set to 'false', except when not running with HTTPS (e.g. on localhost)
+  cookie_max_age: 172800
+  allow_signup: true
+  expose_metrics: false
+  enable_proxy: false                 # only intended for production instance at wakapi.dev
+
+sentry:
+  dsn:                                # leave blank to disable sentry integration
+  enable_tracing: true                # whether to use performance monitoring
+  sample_rate: 0.75                   # probability of tracing a request
+  sample_rate_heartbeats: 0.1         # probability of tracing a heartbeat request
+
+mail:
+  enabled: true                         # whether to enable mails (used for password resets, reports, etc.)
+  provider: smtp                        # method for sending mails, currently one of ['smtp', 'mailwhale']
+  sender: Wakapi <noreply@wakapi.dev>   # ignored for mailwhale
+
+  # smtp settings when sending mails via smtp
+  smtp:
+    host:
+    port:
+    username:
+    password:
+    tls:
+
+  # mailwhale.dev settings when using mailwhale as sending service
+  mailwhale:
+    url:
+    client_id:
+    client_secret:
+
+quick_start: false                  # whether to skip initial tasks on application startup, like summary generation
