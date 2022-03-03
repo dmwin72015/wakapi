@@ -412,3 +412,6 @@ Moreover, thanks to **[JetBrains](https://jb.gg/OpenSource)** for supporting thi
 
 ## 📓 License
 GPL-v3 @ [Ferdinand Mütsch](https://muetsch.io)
+
+## TODO
+toggle light/dark mode 
