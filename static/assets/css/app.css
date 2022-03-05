@@ -79,7 +79,7 @@ body {
 }
 
 .chip {
-    @apply text-xs bg-gray-800 rounded rounded-full py-1 px-2 font-semibold inline-block mb-1;
+    @apply text-xs bg-gray-100 rounded  py-1 px-2 font-semibold inline-block mb-1;
 }
 
 .link {

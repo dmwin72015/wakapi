@@ -34,22 +34,22 @@
 
 <main class="mt-10 flex-grow flex justify-center w-full" v-scope @vue:mounted="mounted" id="settings-page">
     <div class="flex flex-col flex-grow mt-10">
-        <h1 class="font-semibold text-3xl text-slate-800 dark:bg-slate-100 m-0 mb-4">Settings</h1>
+        <h1 class="font-semibold text-3xl text-slate-800 dark:bg-slate-100 m-0 mb-4">设置</h1>
 
         <ul class="flex space-x-4 mb-16 text-gray-500">
-            <li class="font-semibold text-2xl px-2 py-1 rounded-sm" v-bind:class="{ 'text-slate-800 dark:text-slate-100 bg-slate-100 dark:bg-slate-800': isActive('account'), 'hover:text-gray-400': !isActive('account') }">
-                <a href="settings#account" @click="updateTab">Account</a>
+            <li class="font-semibold text-2xl px-2 py-1 rounded-sm" v-bind:class="{ 'text-slate-800 dark:text-slate-100 bg-slate-200 dark:bg-slate-800': isActive('account'), 'hover:text-gray-400': !isActive('account') }">
+                <a href="settings#account" @click="updateTab">账号</a>
             </li>
-            <li class="font-semibold text-2xl px-2 py-1 rounded-sm" v-bind:class="{ 'text-slate-800 dark:text-slate-100 bg-slate-100 dark:bg-slate-800': isActive('data'), 'hover:text-gray-400': !isActive('data') }">
-                <a href="settings#data" @click="updateTab">Data</a>
+            <li class="font-semibold text-2xl px-2 py-1 rounded-sm" v-bind:class="{ 'text-slate-800 dark:text-slate-100 bg-slate-200 dark:bg-slate-800': isActive('data'), 'hover:text-gray-400': !isActive('data') }">
+                <a href="settings#data" @click="updateTab">数据</a>
             </li>
-            <li class="font-semibold text-2xl px-2 py-1 rounded-sm" v-bind:class="{ 'text-slate-800 dark:text-slate-100 bg-slate-100 dark:bg-slate-800': isActive('permissions'), 'hover:text-gray-400': !isActive('permissions') }">
+            <li class="font-semibold text-2xl px-2 py-1 rounded-sm" v-bind:class="{ 'text-slate-800 dark:text-slate-100 bg-slate-200 dark:bg-slate-800': isActive('permissions'), 'hover:text-gray-400': !isActive('permissions') }">
                 <a href="settings#permissions" @click="updateTab">Permissions</a>
             </li>
-            <li class="font-semibold text-2xl px-2 py-1 rounded-sm" v-bind:class="{ 'text-slate-800 dark:text-slate-100 bg-slate-100 dark:bg-slate-800': isActive('integrations'), 'hover:text-gray-400': !isActive('integrations') }">
+            <li class="font-semibold text-2xl px-2 py-1 rounded-sm" v-bind:class="{ 'text-slate-800 dark:text-slate-100 bg-slate-200 dark:bg-slate-800': isActive('integrations'), 'hover:text-gray-400': !isActive('integrations') }">
                 <a href="settings#integrations" @click="updateTab">Integrations</a>
             </li>
-            <li class="font-semibold text-2xl px-2 py-1 rounded-sm" v-bind:class="{ 'text-slate-800 dark:text-slate-100 bg-slate-100 dark:bg-slate-800': isActive('danger_zone'), 'hover:text-gray-400': !isActive('danger_zone') }">
+            <li class="font-semibold text-2xl px-2 py-1 rounded-sm" v-bind:class="{ 'text-slate-800 dark:text-slate-100 bg-slate-200 dark:bg-slate-800': isActive('danger_zone'), 'hover:text-gray-400': !isActive('danger_zone') }">
                 <a href="settings#danger_zone" @click="updateTab">Danger Zone</a>
             </li>
         </ul>
@@ -163,21 +163,21 @@
             <div class="w-full">
                 <div class="flex flex-wrap flex-nowrap mb-8 gap-x-4">
                     <div class="w-full md:w-1/3 mb-4 md:mb-0 inline-block">
-                        <span class="input-label">Aliases</span>
+                        <span class="input-label">别名</span>
                         <p class="block text-sm text-gray-500">You can specify aliases for any type of entity. For instance, you can define a rule, that both "myapp-frontend" and "myapp-backend" are combined under a project called "myapp".</p>
                     </div>
 
                     <div class="w-full md:w-2/3 inline-block">
                         {{ if .Aliases }}
                         <div class="mb-8">
-                            <h3 class="input-label">Rules</h3>
+                            <h3 class="input-label">规则</h3>
                             {{ range $i, $alias := .Aliases }}
                             <div class="flex items-center">
-                                <div class="text-gray-300 border-1 w-full inline-block my-1 py-1 text-align text-sm"
+                                <div class="text-gray-600 border-1 w-full inline-block my-1 py-1 text-align text-sm"
                                      style="line-height: 1.8">
                                     &#9656;&nbsp; All <span class="font-semibold">{{ $alias.Type | typeName }}s</span> named
                                     {{ range $j, $value := $alias.Values }}
-                                    <span class="text-white chip text-green-700">{{- $value -}}</span>
+                                    <span class="chip text-green-700">{{- $value -}}</span>
                                     {{ if lt $j (add (len $alias.Values) -2) }}
                                     <span class="-ml-1">{{- ", " | capitalize -}}</span>
                                     {{ else if lt $j (add (len $alias.Values) -1) }}
@@ -185,13 +185,13 @@
                                     {{ end }}
                                     {{ end }}
                                     are mapped to <span class="font-semibold">{{ $alias.Type | typeName }}</span> <span
-                                        class="text-white chip text-green-700">{{ $alias.Key }}</span>
+                                        class="chip text-green-700">{{ $alias.Key }}</span>
                                 </div>
                                 <form class="float-right" action="" method="post">
                                     <input type="hidden" name="action" value="delete_alias">
                                     <input type="hidden" id="delete_alias_key" name="key" required value="{{ $alias.Key }}">
                                     <input type="hidden" id="delete_alias_type" name="type" required value="{{ $alias.Type }}">
-                                    <button type="submit" class="py-2 px-4 rounded bg-gray-800 hover:bg-gray-800 text-red-600 text-sm" title="Delete rule">✕</button>
+                                    <button type="submit" class="py-2 px-4 rounded bg-red-600 hover:bg-red-400 text-white text-sm" title="Delete rule">✕</button>
                                 </form>
                             </div>
                             {{end}}
@@ -199,7 +199,7 @@
                         {{end}}
 
                         <form action="" method="post">
-                            <h3 class="input-label">Add Rule</h3>
+                            <h3 class="input-label">添加规则</h3>
 
                             <input type="hidden" name="action" value="add_alias">
                             <div class="flex items-center mt-2 w-full text-gray-500 text-sm">
@@ -236,7 +236,7 @@
             <div class="w-full">
                 <div class="flex flex-wrap md:flex-nowrap mb-8 gap-x-4">
                     <div class="w-full md:w-1/3 mb-4 md:mb-0 inline-block">
-                        <span class="input-label">Project Labels</span>
+                        <span class="input-label">项目标签</span>
                         <p class="block text-sm text-gray-500">You can assign labels (aka. tags) to projects to group them together, e.g. by "private" and "work".</p>
                     </div>
 
@@ -304,17 +304,17 @@
             <div class="w-full">
                 <div class="flex flex-wrap md:flex-nowrap mb-8 gap-x-4">
                     <div class="w-full md:w-1/3 mb-4 md:mb-0 inline-block">
-                        <span class="input-label">Language Mappings</span>
+                        <span class="input-label">语言映射</span>
                         <p class="block text-sm text-gray-500">You can specify custom mapping from file extensions to programming languages, for instance a ".jsx" file could be mapped to the "React" language.</p>
                     </div>
 
                     <div class="w-full md:w-2/3 inline-block">
                         {{ if .LanguageMappings }}
                         <div class="mb-8">
-                            <h3 class="input-label">Rules</h3>
+                            <h3 class="input-label">映射规则</h3>
                             {{ range $i, $mapping := .LanguageMappings }}
                             <div class="flex items-center mb-2">
-                                <div class="text-gray-300 border-1 w-full inline-block my-1 py-1 text-align text-sm">
+                                <div class="text-gray-600 border-1 w-full inline-block my-1 py-1 text-align text-sm">
                                     &#9656;&nbsp; When filename ends in <span
                                         class="text-green-700 chip mr-1">{{ $mapping.Extension }}</span>
                                     then change the <span class="font-semibold">language</span> to <span
@@ -331,7 +331,7 @@
                         {{end}}
 
                         <form action="" method="post">
-                            <h3 class="input-label">Add Rule</h3>
+                            <h3 class="input-label">添加规则</h3>
                             <input type="hidden" name="action" value="add_mapping">
                             <div class="flex items-center w-full text-gray-500 text-sm">
                                 <span class="mr-2">When filename ends in</span>
@@ -359,7 +359,7 @@
             <form action="" method="post" class="w-full lg:w-3/4">
                 <div class="flex flex-wrap md:flex-nowrap mb-8 gap-x-4">
                     <div class="w-full md:w-1/2 mb-4 md:mb-0 inline-block">
-                        <span class="input-label">Aliases</span>
+                        <span class="input-label">别名</span>
                         <p class="block text-sm text-gray-500">
                             Some features require public access to your data without authentication. This mainly includes badges ("shields" endpoint) and the integration with GitHub Readme Stats ("stats" endpoint). You can choose which data to share publicly through these endpoints.
                         </p>
@@ -494,10 +494,10 @@
                     </div>
                     <div class="w-full md:w-1/2">
                         <input type="url" name="api_url" id="wakatime_api_url"
-                               class="w-full appearance-none bg-gray-800 text-gray-300 outline-none rounded py-2 px-4 mb-2 {{ if not .User.WakatimeApiKey }}focus:bg-gray-800{{ end }} {{ if .User.WakatimeApiKey }}cursor-not-allowed{{ end }}"
+                               class="input-default py-2 px-4 mt-2 {{ if not .User.WakatimeApiKey }}focus:bg-gray-300{{ end }} {{ if .User.WakatimeApiKey }}cursor-not-allowed{{ end }}"
                                placeholder="{{ defaultWakatimeUrl }}" {{ if .User.WakatimeApiKey }}readonly{{ end }} value="{{ .User.WakaTimeURL "" }}">
                         <input type="password" name="api_key" id="wakatime_api_key"
-                               class="w-full appearance-none bg-gray-800 text-gray-300 outline-none rounded py-2 px-4 mt-2 {{ if not .User.WakatimeApiKey }}focus:bg-gray-800{{ end }} {{ if .User.WakatimeApiKey }}cursor-not-allowed{{ end }}"
+                               class="input-default py-2 px-4 mt-2 {{ if not .User.WakatimeApiKey }}focus:bg-gray-300{{ end }} {{ if .User.WakatimeApiKey }}cursor-not-allowed{{ end }}"
                                placeholder="{{ $placeholderText }}" {{ if .User.WakatimeApiKey }}readonly{{ end }}>
                     </div>
                 </div>
